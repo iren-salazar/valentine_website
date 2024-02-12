@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asking you out</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #FFE7E7; /* White background color */
+            color: rgb(0, 0, 0); /* Text color */
+        }
+        h1 {
+            color: rgb(0, 0, 0); /* Text color */
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #D63484; /* Button color */
+            color: white; /* Button text color */
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+            position: relative;
+        }
+        button:disabled {
+            opacity: 0.7; /* Reduce opacity for disabled buttons */
+            cursor: not-allowed;
+        }
+        #button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #response-message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Would you like to go out with me?</h1>
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHJ0MG5obDl1ZXhiMGg1M3JkaTdmbHl0emJtZDFobmhlbmxjMzkyYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vRwmQ4az7ugWk/giphy-downsized-large.gif" alt="Proposal Image">
+
+    <div id="button-container">
+        <button id="yesButton" onclick="handleResponse('yes')">Yes</button>
+        <button id="noButton" onclick="handleResponse('no')" onmousemove="moveButton()">No</button>
+    </div>
+    
+    <div id="response-message"></div>
+
+    <script>
+        let noButtonFloating = false;
+
+        function handleResponse(response) {
+            document.getElementById('yesButton').disabled = true;
+            document.getElementById('noButton').disabled = true;
+
+            if (noButtonFloating) {
+                document.getElementById('response-message').innerText = `You tried to choose 'No', but the button is floating away!`;
+            } else if (response === 'yes') {
+                // Redirect to the success page
+                window.location.href = 'success.html';
+            }
+        }
+
+        function moveButton() {
+            const button = document.getElementById('noButton');
+            if (!noButtonFloating) {
+                noButtonFloating = true;
+                button.style.position = 'absolute';
+
+                const getRandomPosition = () => Math.random() * 80 + 'vw'; // Adjust as needed
+                button.style.left = getRandomPosition();
+                button.style.top = getRandomPosition();
+
+                setTimeout(() => {
+                    button.style.position = 'relative';
+                    noButtonFloating = false;
+                }, 1000); // Adjust the timeout as needed
+            }
+        }
+    </script>
+</body>
+</html>
